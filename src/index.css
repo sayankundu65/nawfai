@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Space Mono", ui-monospace, SFMono-Regular, monospace;
+  --color-neon: #00FF00;
+  --color-ink: #000000;
+  --color-paper: #FFFFFF;
+  --color-gray-light: #F0F0F0;
+  --color-gray-dark: #333333;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.text-balance {
+  text-wrap: balance;
+}
+
+p,
+li,
+.text-pretty {
+  text-wrap: pretty;
+}
+
+::selection {
+  background-color: var(--color-neon);
+  color: var(--color-ink);
+}
+
+.grid-lines {
+  background-size: 40px 40px;
+  background-image:
+    linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+}
+
+.brutal-border {
+  border: 1px solid var(--color-ink);
+}
+
+.brutal-border-b {
+  border-bottom: 1px solid var(--color-ink);
+}
+
+.brutal-border-r {
+  border-right: 1px solid var(--color-ink);
+}
+
+.hover-neon {
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.hover-neon:hover {
+  background-color: var(--color-neon);
+  color: var(--color-ink);
+}
+
+* {
+  cursor: none !important;
+}
