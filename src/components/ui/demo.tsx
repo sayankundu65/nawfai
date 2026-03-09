@@ -4,11 +4,11 @@ import { AppleWatchBubbles } from "@/src/components/ui/apple-watch-bubbles"
 
 export function CardStackDemo() {
     const images = [
-        { src: "/images after hero (1).jpg", alt: "Campaign Image 1" },
-        { src: "/images after hero (2).jpg", alt: "Campaign Image 2" },
-        { src: "/images after hero (3).jpg", alt: "Campaign Image 3" },
-        { src: "/images after hero (4).jpg", alt: "Campaign Image 4" },
-        { src: "/images after hero (5).jpg", alt: "Campaign Image 5" },
+        { src: "/influencer/1 (8).jpg", alt: "Campaign Image 1" },
+        { src: "/influencer/1 (9).jpg", alt: "Campaign Image 2" },
+        { src: "/influencer/1 (10).jpg", alt: "Campaign Image 3" },
+        { src: "/influencer/1 (11).jpg", alt: "Campaign Image 4" },
+        { src: "/influencer/1 (12).jpg", alt: "Campaign Image 5" },
     ]
 
     return (

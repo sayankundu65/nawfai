@@ -1,6 +1,5 @@
 import { useRef, useState, useEffect } from "react";
 import { AsciiInsects } from "./components/ui/ascii-insects";
-import { MorphingCursorShape } from "./components/ui/morphing-cursor";
 import { CustomCursor } from "./components/layout/cursor";
 import { BackgroundEffects } from "./components/layout/background-effects";
 import { Nav } from "./components/layout/nav";
@@ -31,7 +30,6 @@ export default function App() {
       {/* Desktop-only overlays: custom cursor, morphing shape, ASCII insect art */}
       <div className="hidden md:block">
         <CustomCursor />
-        <MorphingCursorShape />
       </div>
       <BackgroundEffects />
       {/* ASCII insects — fixed overlay, desktop only */}

@@ -87,9 +87,28 @@ export function GenAIInfluencers() {
 
     }, { scope: container });
 
+    const localImages = [
+        "/influencer/1 (1).jpeg",
+        "/influencer/1 (1).jpg",
+        "/influencer/1 (2).jpeg",
+        "/influencer/1 (2).jpg",
+        "/influencer/1 (3).jpeg",
+        "/influencer/1 (3).jpg",
+        "/influencer/1 (4).jpeg",
+        "/influencer/1 (4).jpg",
+        "/influencer/1 (5).jpg",
+        "/influencer/1 (6).jpg",
+        "/influencer/1 (7).jpg",
+        "/influencer/1 (8).jpg",
+        "/influencer/1 (9).jpg",
+        "/influencer/1 (10).jpg",
+        "/influencer/1 (11).jpg",
+        "/influencer/1 (12).jpg",
+    ];
+
     const NUM_IMAGES = 36;
-    // We use picsum.photos for abstract placeholder images. Each image gets a different seed based on its index.
-    const images = Array.from({ length: NUM_IMAGES }).map((_, i) => `https://picsum.photos/seed/influencer${i}/600/900`);
+    // Tile the local images to fill the 36 array spots
+    const images = Array.from({ length: NUM_IMAGES }).map((_, i) => localImages[i % localImages.length]);
 
     return (
         <div ref={container} className="w-full relative bg-black min-h-[300vh] text-white pt-32 pb-40 overflow-hidden">
@@ -165,7 +184,7 @@ export function GenAIInfluencers() {
                         key={i}
                         ref={el => { decoRefs.current[i] = el; }}
                         className="deco-item border border-[#00FF66]/10 shadow-[0_0_15px_rgba(0,255,102,0.05)]"
-                        style={{ backgroundImage: `url(${src})` }}
+                        style={{ backgroundImage: `url('${src}')` }}
                     />
                 ))}
             </div>

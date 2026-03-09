@@ -185,7 +185,7 @@ export function HeroSection() {
                     >
                         {/* 1. Bubble circle near Hero headline */}
                         <ParallaxImage
-                            src="/images after hero (2).jpg"
+                            src="/influencer/1 (3).jpg"
                             alt="Campaign image"
                             className="w-28 md:w-44 lg:w-52 xl:w-64 -right-4 md:-right-16 lg:-right-32 top-1/4"
                             speed={1.5}
@@ -344,7 +344,7 @@ export function ProblemInsight() {
 
                     {/* 2. Floating square image near Problem intro block */}
                     <ParallaxImage
-                        src="/images after hero (4).jpg"
+                        src="/influencer/1 (1).jpeg"
                         alt="Campaign image"
                         className="w-24 md:w-36 lg:w-44 xl:w-52 right-0 md:-right-10 lg:-right-20 xl:-right-28 top-[10%]"
                         speed={1.2}
@@ -374,7 +374,7 @@ export function ProblemInsight() {
                 >
                     {/* 3. Floating square image near Solution statement */}
                     <ParallaxImage
-                        src="/images after hero (1).jpg"
+                        src="/influencer/1 (4).jpg"
                         alt="Campaign image"
                         className="w-28 md:w-44 lg:w-56 xl:w-64 -right-10 md:-right-24 lg:-right-40 -top-1/4"
                         speed={1.8}
@@ -537,7 +537,7 @@ export function TypographicStatements() {
 
                 {/* 4. Floating square image near Philo/Currency */}
                 <ParallaxImage
-                    src="/images after hero (5).jpg"
+                    src="/influencer/1 (7).jpg"
                     alt="Campaign image"
                     className="w-28 md:w-44 lg:w-56 xl:w-64 right-4 md:right-16 lg:right-24 md:-top-16"
                     speed={2.2}
@@ -636,7 +636,7 @@ export function SpeedVsEmotion() {
             <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12">
                 {/* Bubble image — top right */}
                 <ParallaxImage
-                    src="/images after hero (3).jpg"
+                    src="/influencer/1 (3).jpeg"
                     alt="Campaign image"
                     className="w-28 md:w-40 lg:w-48 right-0 md:-right-8 lg:-right-16 -top-8"
                     speed={1.4}
@@ -744,7 +744,7 @@ export function PsychologyAndEfficiency() {
             <section className="relative bg-black py-16 md:py-40 overflow-hidden border-t border-white/[0.04]">
                 {/* Bubble image — left side */}
                 <ParallaxImage
-                    src="/images after hero (5).jpg"
+                    src="/influencer/1 (2).jpeg"
                     alt="Campaign image"
                     className="w-24 md:w-36 lg:w-44 -left-4 md:-left-8 lg:-left-16 top-1/3"
                     speed={1.6}
