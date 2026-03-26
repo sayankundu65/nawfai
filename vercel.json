@@ -7,6 +7,10 @@
     {
       "source": "/standardeck/:match*",
       "destination": "https://nawf-standard-deck.vercel.app/standardeck/:match*"
+    },
+    {
+      "source": "/pricing",
+      "destination": "/"
     }
   ]
 }

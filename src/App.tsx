@@ -7,11 +7,12 @@ import { Footer } from "./components/layout/footer";
 import { Home } from "./pages/home";
 import { About } from "./pages/about";
 import { Contact } from "./pages/contact";
+import { Pricing } from "./pages/pricing";
 import { GenAIInfluencers } from "./pages/genai-influencers";
 
 export default function App() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [currentPath, setCurrentPath] = useState(window.location.hash || "#/");
+  const [currentPath, setCurrentPath] = useState(window.location.hash || (window.location.pathname === "/pricing" ? "#/pricing" : "#/"));
 
   useEffect(() => {
     const onHashChange = () => {
@@ -49,7 +50,8 @@ export default function App() {
         <AsciiInsects />
       </div>
       <Nav />
-      {currentPath === "#/about" ? <About /> :
+      {currentPath === "#/pricing" ? <Pricing /> :
+        currentPath === "#/about" ? <About /> :
         currentPath === "#/contact" ? <Contact /> :
           currentPath === "#/genai-influencers" ? <GenAIInfluencers /> :
             <Home />}
