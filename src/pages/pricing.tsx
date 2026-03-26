@@ -143,7 +143,7 @@ const features: FeatureCategory[] = [
 
 const renderValue = (val: string) => {
   if (val === "-") return <X className="w-5 h-5 text-zinc-800" />;
-  if (val === "Custom") return <span className="text-[10px] font-bold uppercase tracking-widest text-purple-400 border border-purple-500/30 bg-purple-500/10 rounded-full px-2 py-1">Custom</span>;
+  if (val === "Custom") return <span className="text-[10px] font-bold uppercase tracking-widest text-[#00FF66] border border-[#00FF66]/30 bg-[#00FF66]/10 rounded-full px-2 py-1">Custom</span>;
   return <span className="font-semibold text-zinc-100 text-lg">{val}</span>;
 };
 
@@ -169,11 +169,11 @@ export function Pricing() {
   };
 
   return (
-    <div className="min-h-screen bg-[#050505] text-white selection:bg-purple-500/30 font-sans overflow-x-hidden pt-20">
+    <div className="min-h-screen bg-[#050505] text-white selection:bg-[#00FF66]/30 font-sans overflow-x-hidden pt-20">
       {/* Background Glows */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-purple-900/20 blur-[120px]" />
-        <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-pink-900/10 blur-[120px]" />
+        <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-[#00FF66]/10 blur-[120px]" />
+        <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-emerald-900/10 blur-[120px]" />
       </div>
 
       <div className="relative z-10">
@@ -194,7 +194,7 @@ export function Pricing() {
             className="text-5xl md:text-7xl font-bold tracking-tighter mb-6"
           >
             Nawfs <br className="hidden md:block" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00FF66] to-emerald-400">
               Credit Plans.
             </span>
           </motion.h1>
@@ -246,10 +246,10 @@ export function Pricing() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.5, delay: i * 0.1, ease: "easeOut" }}
-                className={`relative p-8 rounded-3xl border flex flex-col ${plan.popular ? 'border-purple-500/50 bg-purple-500/5 shadow-[0_0_30px_rgba(168,85,247,0.1)]' : 'border-zinc-800 bg-zinc-900/30'} backdrop-blur-md`}
+                className={`relative p-8 rounded-3xl border flex flex-col ${plan.popular ? 'border-[#00FF66]/50 bg-[#00FF66]/5 shadow-[0_0_30px_rgba(0,255,102,0.15)]' : 'border-zinc-800 bg-zinc-900/30'} backdrop-blur-md`}
               >
                 {plan.popular && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full text-[10px] font-bold uppercase tracking-widest shadow-lg">
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-gradient-to-r from-[#00FF66] to-emerald-500 rounded-full text-[10px] font-bold uppercase tracking-widest shadow-lg text-black">
                     Most Popular
                   </div>
                 )}
@@ -264,11 +264,7 @@ export function Pricing() {
                 <div className="text-lg font-medium text-zinc-300 mb-8">
                   ₹{getPrice(plan).toLocaleString('en-IN')}
                 </div>
-                <div className="mt-auto">
-                  <button className={`w-full py-3 rounded-xl font-medium transition-all active:scale-95 ${plan.popular ? 'bg-white text-black hover:bg-zinc-200' : 'bg-zinc-800 text-white hover:bg-zinc-700'}`}>
-                    Get Started
-                  </button>
-                </div>
+
               </motion.div>
             ))}
           </div>
@@ -308,7 +304,7 @@ export function Pricing() {
                   <React.Fragment key={category.category}>
                     {/* Category Header */}
                     <tr>
-                      <td colSpan={5} className="p-4 pt-16 pb-4 text-xs font-bold uppercase tracking-widest text-purple-400 border-b border-zinc-800/50 sticky left-0 bg-[#050505]/90 backdrop-blur-md z-10">
+                      <td colSpan={5} className="p-4 pt-16 pb-4 text-xs font-bold uppercase tracking-widest text-[#00FF66] border-b border-zinc-800/50 sticky left-0 bg-[#050505]/90 backdrop-blur-md z-10">
                         {category.category}
                       </td>
                     </tr>
