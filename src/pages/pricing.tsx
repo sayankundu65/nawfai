@@ -20,19 +20,16 @@ const plans: Plan[] = [
   { name: "Sigma", monthlyCredits: 11250, quarterlyCredits: 35000, semiAnnualCredits: 85000, monthlyPrice: 892500, quarterlyPrice: 2450000, semiAnnualPrice: 4750000 },
 ];
 
-type TierData = {
-  newbie: string;
-  pro: string;
-  ultimate: string;
-  sigma: string;
+type CreditCost = {
+  monthly: string;
+  quarterly: string;
+  semiAnnual: string;
 };
 
 type FeatureItem = {
   name: string;
   sub?: string;
-  monthly: TierData;
-  quarterly: TierData;
-  semiAnnual: TierData;
+  costs: CreditCost;
 };
 
 type FeatureCategory = {
@@ -46,15 +43,11 @@ const features: FeatureCategory[] = [
     items: [
       {
         name: "Normal",
-        monthly: { newbie: "10", pro: "25", ultimate: "60", sigma: "150" },
-        quarterly: { newbie: "36", pro: "92", ultimate: "215", sigma: "538" },
-        semiAnnual: { newbie: "72", pro: "182", ultimate: "453", sigma: "1214" }
+        costs: { monthly: "75", quarterly: "65", semiAnnual: "70" }
       },
       {
         name: "UGC (Single/Multiple)", sub: "Up to 10 styles",
-        monthly: { newbie: "6", pro: "15", ultimate: "37", sigma: "93" },
-        quarterly: { newbie: "21", pro: "54", ultimate: "127", sigma: "318" },
-        semiAnnual: { newbie: "48", pro: "121", ultimate: "302", sigma: "809" }
+        costs: { monthly: "120", quarterly: "110", semiAnnual: "105" }
       },
     ]
   },
@@ -63,33 +56,23 @@ const features: FeatureCategory[] = [
     items: [
       {
         name: "Short", sub: "6-10s",
-        monthly: { newbie: "6", pro: "14", ultimate: "34", sigma: "86" },
-        quarterly: { newbie: "19", pro: "50", ultimate: "116", sigma: "291" },
-        semiAnnual: { newbie: "46", pro: "115", ultimate: "288", sigma: "772" }
+        costs: { monthly: "130", quarterly: "120", semiAnnual: "110" }
       },
       {
         name: "Short", sub: "12-15s",
-        monthly: { newbie: "5", pro: "12", ultimate: "30", sigma: "75" },
-        quarterly: { newbie: "17", pro: "42", ultimate: "100", sigma: "250" },
-        semiAnnual: { newbie: "39", pro: "98", ultimate: "244", sigma: "653" }
+        costs: { monthly: "150", quarterly: "140", semiAnnual: "130" }
       },
       {
         name: "Mid-form", sub: "20-30s",
-        monthly: { newbie: "4", pro: "10", ultimate: "24", sigma: "59" },
-        quarterly: { newbie: "13", pro: "33", ultimate: "77", sigma: "194" },
-        semiAnnual: { newbie: "30", pro: "77", ultimate: "192", sigma: "515" }
+        costs: { monthly: "190", quarterly: "180", semiAnnual: "165" }
       },
       {
         name: "Long-form", sub: "45-60s",
-        monthly: { newbie: "-", pro: "6", ultimate: "15", sigma: "37" },
-        quarterly: { newbie: "-", pro: "23", ultimate: "53", sigma: "134" },
-        semiAnnual: { newbie: "-", pro: "53", ultimate: "132", sigma: "354" }
+        costs: { monthly: "300", quarterly: "260", semiAnnual: "240" }
       },
       {
         name: "Long-form", sub: "60-90s",
-        monthly: { newbie: "-", pro: "-", ultimate: "13", sigma: "32" },
-        quarterly: { newbie: "-", pro: "-", ultimate: "45", sigma: "113" },
-        semiAnnual: { newbie: "-", pro: "-", ultimate: "105", sigma: "283" }
+        costs: { monthly: "350", quarterly: "310", semiAnnual: "300" }
       },
     ]
   },
@@ -98,15 +81,11 @@ const features: FeatureCategory[] = [
     items: [
       {
         name: "Single Scene",
-        monthly: { newbie: "-", pro: "9", ultimate: "22", sigma: "56" },
-        quarterly: { newbie: "-", pro: "33", ultimate: "77", sigma: "194" },
-        semiAnnual: { newbie: "-", pro: "79", ultimate: "198", sigma: "531" }
+        costs: { monthly: "200", quarterly: "180", semiAnnual: "160" }
       },
       {
         name: "Multi Scene",
-        monthly: { newbie: "-", pro: "4", ultimate: "11", sigma: "28" },
-        quarterly: { newbie: "-", pro: "16", ultimate: "38", sigma: "97" },
-        semiAnnual: { newbie: "-", pro: "36", ultimate: "90", sigma: "242" }
+        costs: { monthly: "400", quarterly: "360", semiAnnual: "350" }
       },
     ]
   },
@@ -115,31 +94,29 @@ const features: FeatureCategory[] = [
     items: [
       {
         name: "Single",
-        monthly: { newbie: "Custom", pro: "Custom", ultimate: "Custom", sigma: "Custom" },
-        quarterly: { newbie: "Custom", pro: "Custom", ultimate: "Custom", sigma: "Custom" },
-        semiAnnual: { newbie: "Custom", pro: "Custom", ultimate: "Custom", sigma: "Custom" }
+        costs: { monthly: "Custom", quarterly: "Custom", semiAnnual: "Custom" }
       },
       {
         name: "2 Variants",
-        monthly: { newbie: "-", pro: "-", ultimate: "Custom", sigma: "Custom" },
-        quarterly: { newbie: "-", pro: "-", ultimate: "Custom", sigma: "Custom" },
-        semiAnnual: { newbie: "-", pro: "-", ultimate: "Custom", sigma: "Custom" }
+        costs: { monthly: "-", quarterly: "-", semiAnnual: "-" }
       },
       {
         name: "3 Variants",
-        monthly: { newbie: "-", pro: "-", ultimate: "Custom", sigma: "Custom" },
-        quarterly: { newbie: "-", pro: "-", ultimate: "Custom", sigma: "Custom" },
-        semiAnnual: { newbie: "-", pro: "-", ultimate: "Custom", sigma: "Custom" }
+        costs: { monthly: "-", quarterly: "-", semiAnnual: "-" }
       },
       {
         name: "Perf. Ad Sets",
-        monthly: { newbie: "-", pro: "-", ultimate: "Custom", sigma: "Custom" },
-        quarterly: { newbie: "-", pro: "-", ultimate: "Custom", sigma: "Custom" },
-        semiAnnual: { newbie: "-", pro: "-", ultimate: "Custom", sigma: "Custom" }
+        costs: { monthly: "-", quarterly: "-", semiAnnual: "-" }
       },
     ]
   }
 ];
+
+const billingLabels = {
+  monthly: "Monthly Credits",
+  quarterly: "Quarterly Credits",
+  semiAnnual: "½ Yearly Credits",
+};
 
 const renderValue = (val: string) => {
   if (val === "-") return <X className="w-5 h-5 text-zinc-800" />;
@@ -270,33 +247,39 @@ export function Pricing() {
           </div>
         </section>
 
-        {/* Detailed Comparison Table */}
-        <section className="px-6 max-w-7xl mx-auto pb-32">
+        {/* Credit Cost Per Unit Table */}
+        <section className="px-6 max-w-5xl mx-auto pb-32">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="mb-12 text-center md:text-left max-w-3xl"
           >
-            <h2 className="text-3xl font-bold tracking-tight mb-4">What can your credits buy?</h2>
+            <h2 className="text-3xl font-bold tracking-tight mb-4">Credit Cost Per Asset</h2>
             <p className="text-zinc-400 text-lg leading-relaxed">
-              The numbers below show the <strong className="text-zinc-200 font-semibold">maximum output</strong> if you spend all your credits on a single asset type.
-              For example, with 750 credits, you can create 10 Normal Statics <strong className="text-zinc-200 font-semibold">OR</strong> 6 Short Videos.
+              See how many credits each content type costs.
+              For example, <strong className="text-zinc-200 font-semibold">1 Normal Static = 75 credits</strong> on the monthly plan — so with 750 credits you can create 10 statics.
               Mix and match assets to fit your campaign!
             </p>
           </motion.div>
 
           <div className="overflow-x-auto pb-8 scrollbar-hide">
-            <table className="w-full text-left border-collapse min-w-[800px]">
+            <table className="w-full text-left border-collapse min-w-[600px]">
               <thead>
                 <tr>
                   <th className="p-4 border-b border-zinc-800 w-1/4 sticky left-0 bg-[#050505]/90 backdrop-blur-md z-20"></th>
-                  {plans.map(plan => (
-                    <th key={plan.name} className="p-4 border-b border-zinc-800 text-xl font-semibold text-zinc-100">
-                      <div>{plan.name}</div>
-                      <div className="text-sm font-normal text-zinc-500 mt-1">{getCredits(plan).toLocaleString()} Credits</div>
-                    </th>
-                  ))}
+                  <th className="p-4 border-b border-zinc-800 text-center">
+                    <div className="text-lg font-semibold text-zinc-100">Monthly</div>
+                    <div className="text-xs font-normal text-zinc-500 mt-1">Credits</div>
+                  </th>
+                  <th className="p-4 border-b border-zinc-800 text-center">
+                    <div className="text-lg font-semibold text-zinc-100">Quarterly</div>
+                    <div className="text-xs font-normal text-zinc-500 mt-1">Credits</div>
+                  </th>
+                  <th className="p-4 border-b border-zinc-800 text-center">
+                    <div className="text-lg font-semibold text-zinc-100">½ Yearly</div>
+                    <div className="text-xs font-normal text-zinc-500 mt-1">Credits</div>
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -304,42 +287,35 @@ export function Pricing() {
                   <React.Fragment key={category.category}>
                     {/* Category Header */}
                     <tr>
-                      <td colSpan={5} className="p-4 pt-16 pb-4 text-xs font-bold uppercase tracking-widest text-[#00FF66] border-b border-zinc-800/50 sticky left-0 bg-[#050505]/90 backdrop-blur-md z-10">
+                      <td colSpan={4} className="p-4 pt-16 pb-4 text-xs font-bold uppercase tracking-widest text-[#00FF66] border-b border-zinc-800/50 sticky left-0 bg-[#050505]/90 backdrop-blur-md z-10">
                         {category.category}
                       </td>
                     </tr>
                     {/* Items */}
-                    {category.items.map((item, itemIdx) => {
-                      const currentData = billingCycle === 'Quarterly' ? item.quarterly : billingCycle === 'Semi-Annually' ? item.semiAnnual : item.monthly;
-
-                      return (
-                        <motion.tr
-                          key={item.name + (item.sub || '')}
-                          initial={{ opacity: 0, x: -10 }}
-                          whileInView={{ opacity: 1, x: 0 }}
-                          viewport={{ once: true, margin: "-50px" }}
-                          transition={{ duration: 0.3, delay: itemIdx * 0.05 }}
-                          className="group hover:bg-zinc-900/40 transition-colors"
-                        >
-                          <td className="p-4 border-b border-zinc-800/50 sticky left-0 bg-[#050505]/90 group-hover:bg-zinc-900/90 backdrop-blur-md z-10 transition-colors">
-                            <div className="font-medium text-zinc-200">{item.name}</div>
-                            {item.sub && <div className="text-xs text-zinc-500 mt-0.5">{item.sub}</div>}
-                          </td>
-                          <td className="p-4 border-b border-zinc-800/50">
-                            {renderValue(currentData.newbie)}
-                          </td>
-                          <td className="p-4 border-b border-zinc-800/50">
-                            {renderValue(currentData.pro)}
-                          </td>
-                          <td className="p-4 border-b border-zinc-800/50">
-                            {renderValue(currentData.ultimate)}
-                          </td>
-                          <td className="p-4 border-b border-zinc-800/50">
-                            {renderValue(currentData.sigma)}
-                          </td>
-                        </motion.tr>
-                      );
-                    })}
+                    {category.items.map((item, itemIdx) => (
+                      <motion.tr
+                        key={item.name + (item.sub || '')}
+                        initial={{ opacity: 0, x: -10 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true, margin: "-50px" }}
+                        transition={{ duration: 0.3, delay: itemIdx * 0.05 }}
+                        className="group hover:bg-zinc-900/40 transition-colors"
+                      >
+                        <td className="p-4 border-b border-zinc-800/50 sticky left-0 bg-[#050505]/90 group-hover:bg-zinc-900/90 backdrop-blur-md z-10 transition-colors">
+                          <div className="font-medium text-zinc-200">{item.name}</div>
+                          {item.sub && <div className="text-xs text-zinc-500 mt-0.5">{item.sub}</div>}
+                        </td>
+                        <td className="p-4 border-b border-zinc-800/50 text-center">
+                          {renderValue(item.costs.monthly)}
+                        </td>
+                        <td className="p-4 border-b border-zinc-800/50 text-center">
+                          {renderValue(item.costs.quarterly)}
+                        </td>
+                        <td className="p-4 border-b border-zinc-800/50 text-center">
+                          {renderValue(item.costs.semiAnnual)}
+                        </td>
+                      </motion.tr>
+                    ))}
                   </React.Fragment>
                 ))}
               </tbody>
