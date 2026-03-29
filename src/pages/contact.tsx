@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { CursorAura } from "../components/about/about-redesign";
@@ -17,6 +17,34 @@ function DotGrid() {
 
 export function Contact() {
     const containerRef = useRef<HTMLDivElement>(null);
+    const [status, setStatus] = useState("");
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setStatus("Sending...");
+        
+        const formData = new FormData(e.currentTarget);
+        // Replace with your Web3Forms access key
+        formData.append("access_key", "0db95605-0069-4cf6-aed6-67801066f559");
+
+        try {
+            const response = await fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                body: formData
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                setStatus("Message sent successfully! We'll be in touch.");
+                e.currentTarget.reset();
+            } else {
+                setStatus("Something went wrong. Please try again.");
+            }
+        } catch (error) {
+            setStatus("Something went wrong. Please try again.");
+        }
+    };
 
     useGSAP(() => {
         const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
@@ -86,7 +114,7 @@ export function Contact() {
                         style={{ background: "radial-gradient(circle at 50% 0%, rgba(0,255,102,0.06) 0%, transparent 70%)" }}
                     />
 
-                    <form className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-12 md:gap-y-16" onSubmit={(e) => e.preventDefault()}>
+                    <form className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-12 md:gap-y-16" onSubmit={handleSubmit}>
 
                         {/* Name (Full Width on Mobile, Half on Desktop) */}
                         <div className="flex flex-col gap-4 col-span-1">
@@ -95,6 +123,7 @@ export function Contact() {
                             </label>
                             <input
                                 type="text"
+                                name="name"
                                 placeholder="YOUR NAME"
                                 required
                                 className="w-full bg-transparent border-b border-white/20 pb-4 text-white font-bold text-lg md:text-2xl placeholder-white/20 focus:outline-none focus:border-[#00FF66] transition-colors"
@@ -108,6 +137,7 @@ export function Contact() {
                             </label>
                             <input
                                 type="email"
+                                name="email"
                                 placeholder="HELLO@EXAMPLE.COM"
                                 required
                                 className="w-full bg-transparent border-b border-white/20 pb-4 text-white font-bold text-lg md:text-2xl placeholder-white/20 focus:outline-none focus:border-[#00FF66] transition-colors"
@@ -119,6 +149,7 @@ export function Contact() {
                             <label className="font-mono text-xs uppercase tracking-[0.25em] text-white/50 px-1">Company / Brand</label>
                             <input
                                 type="text"
+                                name="company"
                                 placeholder="YOUR BRAND"
                                 className="w-full bg-transparent border-b border-white/20 pb-4 text-white font-bold text-lg md:text-2xl placeholder-white/20 focus:outline-none focus:border-[#00FF66] transition-colors"
                             />
@@ -130,7 +161,7 @@ export function Contact() {
                                 I’M REACHING OUT AS... <span className="text-[#00FF66]">*</span>
                             </label>
                             <div className="relative">
-                                <select required className="w-full bg-transparent border-b border-white/20 pb-4 text-white font-bold text-lg md:text-2xl focus:outline-none focus:border-[#00FF66] transition-colors appearance-none cursor-pointer">
+                                <select name="type" required className="w-full bg-transparent border-b border-white/20 pb-4 text-white font-bold text-lg md:text-2xl focus:outline-none focus:border-[#00FF66] transition-colors appearance-none cursor-pointer">
                                     <option value="" className="bg-black text-white/50">SELECT TYPE</option>
                                     <option value="brand" className="bg-black text-white">A BRAND</option>
                                     <option value="agency" className="bg-black text-white">AN AGENCY</option>
@@ -152,6 +183,7 @@ export function Contact() {
                                 Message <span className="text-[#00FF66]">*</span>
                             </label>
                             <textarea
+                                name="message"
                                 placeholder="TELL US ABOUT YOUR PROJECT, VISION, OR WHY YOU'RE REACHING OUT..."
                                 required
                                 rows={4}
@@ -175,6 +207,13 @@ export function Contact() {
                                 </span>
                             </button>
                         </div>
+
+                        {/* Status Message */}
+                        {status && (
+                            <div className="col-span-1 md:col-span-2 text-[#00FF66] font-mono text-xs uppercase tracking-widest text-center mt-4">
+                                {status}
+                            </div>
+                        )}
 
                     </form>
                 </div>
