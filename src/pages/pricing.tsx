@@ -96,18 +96,77 @@ const features: FeatureCategory[] = [
         name: "Single",
         costs: { monthly: "Custom", quarterly: "Custom", semiAnnual: "Custom" }
       },
-      {
-        name: "2 Variants",
-        costs: { monthly: "-", quarterly: "-", semiAnnual: "-" }
-      },
-      {
-        name: "3 Variants",
-        costs: { monthly: "-", quarterly: "-", semiAnnual: "-" }
-      },
-      {
-        name: "Perf. Ad Sets",
-        costs: { monthly: "-", quarterly: "-", semiAnnual: "-" }
-      },
+    ]
+  }
+];
+
+const addOnCategories: FeatureCategory[] = [
+  {
+    category: "Influencers/ Models/ Content Creators",
+    items: [
+      { name: "Ai Influencer Collabs", costs: { monthly: "Custom", quarterly: "Custom", semiAnnual: "Custom" } },
+      { name: "Real Influencer/ Actor Partnerships", costs: { monthly: "Custom", quarterly: "Custom", semiAnnual: "Custom" } },
+      { name: "Models - Contractual Basis", costs: { monthly: "Custom", quarterly: "Custom", semiAnnual: "Custom" } },
+    ]
+  },
+  {
+    category: "Videography",
+    items: [
+      { name: "Cinematic Brand Films", costs: { monthly: "Custom", quarterly: "Custom", semiAnnual: "Custom" } },
+      { name: "Vision Films", costs: { monthly: "Custom", quarterly: "Custom", semiAnnual: "Custom" } },
+      { name: "Performance Ads", costs: { monthly: "Custom", quarterly: "Custom", semiAnnual: "Custom" } },
+      { name: "Office walkthroughs", costs: { monthly: "Custom", quarterly: "Custom", semiAnnual: "Custom" } },
+      { name: "CGI/ 3D Product Renders", costs: { monthly: "Custom", quarterly: "Custom", semiAnnual: "Custom" } },
+      { name: "Explainer Videos", costs: { monthly: "Custom", quarterly: "Custom", semiAnnual: "Custom" } },
+      { name: "TVCs/ Digital Commercials", costs: { monthly: "Custom", quarterly: "Custom", semiAnnual: "Custom" } },
+    ]
+  },
+  {
+    category: "Design",
+    items: [
+      { name: "Marketing Campaigns", costs: { monthly: "Custom", quarterly: "Custom", semiAnnual: "Custom" } },
+      { name: "Fashion Lookbooks", costs: { monthly: "Custom", quarterly: "Custom", semiAnnual: "Custom" } },
+      { name: "Thumbnail", costs: { monthly: "Custom", quarterly: "Custom", semiAnnual: "Custom" } },
+      { name: "A+ Content Layouts", costs: { monthly: "Custom", quarterly: "Custom", semiAnnual: "Custom" } },
+      { name: "E Commerce/ Quick Commerce", costs: { monthly: "Custom", quarterly: "Custom", semiAnnual: "Custom" } },
+    ]
+  },
+  {
+    category: "Branding",
+    items: [
+      { name: "Booth & event branding", costs: { monthly: "Custom", quarterly: "Custom", semiAnnual: "Custom" } },
+      { name: "Workplace Branding", costs: { monthly: "Custom", quarterly: "Custom", semiAnnual: "Custom" } },
+      { name: "BRAND IDENTITY DESIGN", costs: { monthly: "Custom", quarterly: "Custom", semiAnnual: "Custom" } },
+      { name: "In-store Installations", costs: { monthly: "Custom", quarterly: "Custom", semiAnnual: "Custom" } },
+      { name: "Packaging/ Merchandise", costs: { monthly: "Custom", quarterly: "Custom", semiAnnual: "Custom" } },
+      { name: "Internal brand training", costs: { monthly: "Custom", quarterly: "Custom", semiAnnual: "Custom" } },
+      { name: "Branded Environmental Graphics (EGD)", costs: { monthly: "Custom", quarterly: "Custom", semiAnnual: "Custom" } },
+    ]
+  },
+  {
+    category: "Website & Digital Assets",
+    items: [
+      { name: "Website design (UI/UX)", costs: { monthly: "Custom", quarterly: "Custom", semiAnnual: "Custom" } },
+      { name: "Email marketing flows", costs: { monthly: "Custom", quarterly: "Custom", semiAnnual: "Custom" } },
+      { name: "High-conversion landing pages", costs: { monthly: "Custom", quarterly: "Custom", semiAnnual: "Custom" } },
+      { name: "GEO/ SEO OPTIMIZATION", costs: { monthly: "Custom", quarterly: "Custom", semiAnnual: "Custom" } },
+    ]
+  },
+  {
+    category: "OOH & Experiential Branding",
+    items: [
+      { name: "Pop-Up Store Design", costs: { monthly: "Custom", quarterly: "Custom", semiAnnual: "Custom" } },
+      { name: "Brand activations", costs: { monthly: "Custom", quarterly: "Custom", semiAnnual: "Custom" } },
+      { name: "Transit Branding", costs: { monthly: "Custom", quarterly: "Custom", semiAnnual: "Custom" } },
+      { name: "Retail Branding", costs: { monthly: "Custom", quarterly: "Custom", semiAnnual: "Custom" } },
+      { name: "Print Media", costs: { monthly: "Custom", quarterly: "Custom", semiAnnual: "Custom" } },
+    ]
+  },
+  {
+    category: "Agentic AI",
+    items: [
+      { name: "Automated Agentic Workflows", costs: { monthly: "Custom", quarterly: "Custom", semiAnnual: "Custom" } },
+      { name: "Voice Agents", costs: { monthly: "Custom", quarterly: "Custom", semiAnnual: "Custom" } },
     ]
   }
 ];
@@ -313,6 +372,65 @@ export function Pricing() {
                         </td>
                         <td className="p-4 border-b border-zinc-800/50 text-center">
                           {renderValue(item.costs.semiAnnual)}
+                        </td>
+                      </motion.tr>
+                    ))}
+                  </React.Fragment>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        {/* Add Ons Table */}
+        <section className="px-6 max-w-5xl mx-auto pb-32">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-12 text-center md:text-left max-w-3xl"
+          >
+            <h2 className="text-3xl font-bold tracking-tight mb-4">Add Ons</h2>
+            <p className="text-zinc-400 text-lg leading-relaxed">
+              Enhance your campaigns with our premium add-on services. All add-ons are available with custom pricing tailored to your specific requirements.
+            </p>
+          </motion.div>
+
+          <div className="overflow-x-auto pb-8 scrollbar-hide">
+            <table className="w-full text-left border-collapse min-w-[600px]">
+              <thead>
+                <tr>
+                  <th className="p-4 border-b border-zinc-800 w-[70%] sticky left-0 bg-[#050505]/90 backdrop-blur-md z-20"></th>
+                  <th className="p-4 border-b border-zinc-800 text-center w-[30%]">
+                    <div className="text-lg font-semibold text-zinc-100">Pricing</div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {addOnCategories.map((category) => (
+                  <React.Fragment key={category.category}>
+                    {/* Category Header */}
+                    <tr>
+                      <td colSpan={2} className="p-4 pt-16 pb-4 text-xs font-bold uppercase tracking-widest text-[#00FF66] border-b border-zinc-800/50 sticky left-0 bg-[#050505]/90 backdrop-blur-md z-10">
+                        {category.category}
+                      </td>
+                    </tr>
+                    {/* Items */}
+                    {category.items.map((item, itemIdx) => (
+                      <motion.tr
+                        key={item.name + (item.sub || '')}
+                        initial={{ opacity: 0, x: -10 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true, margin: "-50px" }}
+                        transition={{ duration: 0.3, delay: itemIdx * 0.05 }}
+                        className="group hover:bg-zinc-900/40 transition-colors"
+                      >
+                        <td className="p-4 border-b border-zinc-800/50 sticky left-0 bg-[#050505]/90 group-hover:bg-zinc-900/90 backdrop-blur-md z-10 transition-colors">
+                          <div className="font-medium text-zinc-200">{item.name}</div>
+                          {item.sub && <div className="text-xs text-zinc-500 mt-0.5">{item.sub}</div>}
+                        </td>
+                        <td className="p-4 border-b border-zinc-800/50 text-center">
+                          {renderValue(item.costs.monthly)}
                         </td>
                       </motion.tr>
                     ))}
