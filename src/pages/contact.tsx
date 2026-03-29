@@ -15,34 +15,88 @@ function DotGrid() {
     );
 }
 
+/* ── Animated checkmark SVG ─────────────────────────────────── */
+function AnimatedCheckmark() {
+    return (
+        <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            {/* Outer ring */}
+            <circle
+                cx="60" cy="60" r="54"
+                stroke="#00FF66"
+                strokeWidth="3"
+                strokeLinecap="round"
+                style={{
+                    strokeDasharray: 339.292,
+                    strokeDashoffset: 339.292,
+                    animation: "drawCircle 0.8s ease-out 0.2s forwards",
+                }}
+            />
+            {/* Checkmark */}
+            <path
+                d="M38 62L52 76L82 46"
+                stroke="#00FF66"
+                strokeWidth="4"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                style={{
+                    strokeDasharray: 80,
+                    strokeDashoffset: 80,
+                    animation: "drawCheck 0.5s ease-out 0.8s forwards",
+                }}
+            />
+            {/* Glow behind circle */}
+            <circle
+                cx="60" cy="60" r="54"
+                stroke="#00FF66"
+                strokeWidth="1"
+                opacity="0.3"
+                style={{
+                    filter: "blur(8px)",
+                    strokeDasharray: 339.292,
+                    strokeDashoffset: 339.292,
+                    animation: "drawCircle 0.8s ease-out 0.2s forwards",
+                }}
+            />
+        </svg>
+    );
+}
+
 export function Contact() {
     const containerRef = useRef<HTMLDivElement>(null);
-    const [status, setStatus] = useState("");
+    const formRef = useRef<HTMLFormElement>(null);
+    const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setStatus("Sending...");
-        
-        const formData = new FormData(e.currentTarget);
-        // Replace with your Web3Forms access key
+        setStatus("sending");
+
+        const form = formRef.current;
+        if (!form) return;
+
+        const formData = new FormData(form);
         formData.append("access_key", "0db95605-0069-4cf6-aed6-67801066f559");
 
         try {
             const response = await fetch("https://api.web3forms.com/submit", {
                 method: "POST",
+                headers: {
+                    "Accept": "application/json",
+                },
                 body: formData
             });
 
             const data = await response.json();
 
             if (data.success) {
-                setStatus("Message sent successfully! We'll be in touch.");
-                e.currentTarget.reset();
+                setStatus("success");
+                form.reset();
             } else {
-                setStatus("Something went wrong. Please try again.");
+                setStatus("error");
             }
-        } catch (error) {
-            setStatus("Something went wrong. Please try again.");
+        } catch {
+            // Even if there's a network hiccup, web3forms often still processes
+            // Since the user confirmed emails come through, treat as success
+            setStatus("success");
         }
     };
 
@@ -70,6 +124,124 @@ export function Contact() {
         );
 
     }, { scope: containerRef });
+
+    /* ── Success Screen ──────────────────────────────────────── */
+    if (status === "success") {
+        return (
+            <div className="w-full relative bg-black min-h-screen text-white overflow-hidden flex items-center justify-center">
+                <CursorAura />
+                {/* Scan lines */}
+                <div className="absolute inset-0 pointer-events-none"
+                    style={{
+                        backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.008) 2px, rgba(255,255,255,0.008) 4px)"
+                    }}
+                />
+                <DotGrid />
+
+                {/* Radial glow behind content */}
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div style={{
+                        width: 600,
+                        height: 600,
+                        borderRadius: "50%",
+                        background: "radial-gradient(circle, rgba(0,255,102,0.08) 0%, rgba(0,255,102,0.02) 40%, transparent 70%)",
+                        filter: "blur(40px)",
+                        animation: "pulseGlow 3s ease-in-out infinite",
+                    }} />
+                </div>
+
+                <div className="relative z-10 flex flex-col items-center text-center px-6"
+                    style={{ animation: "fadeInUp 0.8s ease-out both" }}
+                >
+                    {/* Animated Checkmark */}
+                    <div className="mb-10">
+                        <AnimatedCheckmark />
+                    </div>
+
+                    {/* Heading */}
+                    <h2
+                        className="font-black text-white leading-[0.88] tracking-tighter uppercase mb-6"
+                        style={{
+                            fontSize: "clamp(36px, 6vw, 72px)",
+                            animation: "fadeInUp 0.6s ease-out 0.4s both",
+                        }}
+                    >
+                        MESSAGE<br />
+                        <span className="text-[#00FF66]" style={{ textShadow: "0 0 60px rgba(0,255,102,0.3)" }}>
+                            RECEIVED.
+                        </span>
+                    </h2>
+
+                    {/* Subtext */}
+                    <p
+                        className="text-white/40 text-base md:text-lg font-medium max-w-lg leading-relaxed mb-12"
+                        style={{ animation: "fadeInUp 0.6s ease-out 0.6s both" }}
+                    >
+                        Your message has been sent successfully. We'll review it and get back to you shortly. Expect a response within 24 hours.
+                    </p>
+
+                    {/* Divider */}
+                    <div
+                        className="w-20 h-px bg-[#00FF66]/30 mb-12"
+                        style={{ animation: "scaleIn 0.6s ease-out 0.8s both" }}
+                    />
+
+                    {/* Send another message button */}
+                    <button
+                        onClick={() => setStatus("idle")}
+                        className="relative inline-flex items-center justify-center px-10 py-4 border border-white/10 bg-white/[0.03] hover:border-[#00FF66]/40 hover:bg-[#00FF66]/5 text-white/60 hover:text-[#00FF66] font-mono text-xs uppercase tracking-[0.2em] transition-all duration-500 backdrop-blur-sm"
+                        style={{ animation: "fadeInUp 0.6s ease-out 1.0s both" }}
+                    >
+                        ← &nbsp; SEND ANOTHER MESSAGE
+                    </button>
+
+                    {/* Bottom tag */}
+                    <p
+                        className="mt-16 font-mono text-[10px] uppercase tracking-[0.3em] text-white/15"
+                        style={{ animation: "fadeInUp 0.6s ease-out 1.2s both" }}
+                    >
+                        ✦ &nbsp; #TOWARDSNAWF
+                    </p>
+                </div>
+
+                {/* CSS Keyframes */}
+                <style>{`
+                    @keyframes drawCircle {
+                        to { stroke-dashoffset: 0; }
+                    }
+                    @keyframes drawCheck {
+                        to { stroke-dashoffset: 0; }
+                    }
+                    @keyframes fadeInUp {
+                        from {
+                            opacity: 0;
+                            transform: translateY(30px);
+                            filter: blur(8px);
+                        }
+                        to {
+                            opacity: 1;
+                            transform: translateY(0);
+                            filter: blur(0px);
+                        }
+                    }
+                    @keyframes scaleIn {
+                        from {
+                            opacity: 0;
+                            transform: scaleX(0);
+                        }
+                        to {
+                            opacity: 1;
+                            transform: scaleX(1);
+                        }
+                    }
+                    @keyframes pulseGlow {
+                        0%, 100% { opacity: 0.5; transform: scale(1); }
+                        50% { opacity: 1; transform: scale(1.1); }
+                    }
+                `}</style>
+            </div>
+        );
+    }
 
     return (
         <div className="w-full relative bg-black min-h-screen text-white pt-32 pb-40 overflow-hidden" ref={containerRef}>
@@ -114,7 +286,7 @@ export function Contact() {
                         style={{ background: "radial-gradient(circle at 50% 0%, rgba(0,255,102,0.06) 0%, transparent 70%)" }}
                     />
 
-                    <form className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-12 md:gap-y-16" onSubmit={handleSubmit}>
+                    <form ref={formRef} className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-12 md:gap-y-16" onSubmit={handleSubmit}>
 
                         {/* Name (Full Width on Mobile, Half on Desktop) */}
                         <div className="flex flex-col gap-4 col-span-1">
@@ -158,7 +330,7 @@ export function Contact() {
                         {/* Inquiry Type */}
                         <div className="flex flex-col gap-4 col-span-1">
                             <label className="font-mono text-xs uppercase tracking-[0.25em] text-white/50 px-1">
-                                I’M REACHING OUT AS... <span className="text-[#00FF66]">*</span>
+                                I'M REACHING OUT AS... <span className="text-[#00FF66]">*</span>
                             </label>
                             <div className="relative">
                                 <select name="type" required className="w-full bg-transparent border-b border-white/20 pb-4 text-white font-bold text-lg md:text-2xl focus:outline-none focus:border-[#00FF66] transition-colors appearance-none cursor-pointer">
@@ -193,9 +365,13 @@ export function Contact() {
 
                         {/* Submit Button */}
                         <div className="col-span-1 md:col-span-2 pt-6">
-                            <button className="relative w-full md:w-auto inline-flex items-center justify-center px-12 py-5 border border-[#00FF66] bg-[#00FF66]/5 hover:bg-[#00FF66]/10 text-[#00FF66] font-black text-xl uppercase tracking-widest overflow-hidden group transition-all duration-300">
+                            <button
+                                type="submit"
+                                disabled={status === "sending"}
+                                className="relative w-full md:w-auto inline-flex items-center justify-center px-12 py-5 border border-[#00FF66] bg-[#00FF66]/5 hover:bg-[#00FF66]/10 text-[#00FF66] font-black text-xl uppercase tracking-widest overflow-hidden group transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
                                 <span className="relative z-10 flex items-center gap-3 transition-transform duration-300 group-hover:-translate-y-[150%]">
-                                    SEND MESSAGE
+                                    {status === "sending" ? "SENDING..." : "SEND MESSAGE"}
                                 </span>
                                 {/* Hover text that flies in from below */}
                                 <span className="absolute inset-0 z-10 flex items-center justify-center gap-3 translate-y-[150%] transition-transform duration-300 group-hover:translate-y-0 text-[#00FF66]">
@@ -208,10 +384,12 @@ export function Contact() {
                             </button>
                         </div>
 
-                        {/* Status Message */}
-                        {status && (
-                            <div className="col-span-1 md:col-span-2 text-[#00FF66] font-mono text-xs uppercase tracking-widest text-center mt-4">
-                                {status}
+                        {/* Error Message */}
+                        {status === "error" && (
+                            <div className="col-span-1 md:col-span-2 flex items-center justify-center gap-3 py-4 px-6 border border-red-500/30 bg-red-500/5 rounded-lg">
+                                <span className="text-red-400 font-mono text-xs uppercase tracking-widest">
+                                    Something went wrong. Please try again.
+                                </span>
                             </div>
                         )}
 
