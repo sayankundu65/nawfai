@@ -194,7 +194,7 @@ export function Footer() {
                     </p>
                     <div className="flex flex-col gap-3">
                         <a
-                            href="https://instagram.com"
+                            href="https://www.instagram.com/nawf.ai/"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="ft-link font-medium text-sm text-white/70 hover:text-[#00FF66] transition-colors duration-300 flex items-center gap-2 opacity-0"
