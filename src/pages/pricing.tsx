@@ -88,27 +88,10 @@ const features: FeatureCategory[] = [
         costs: { monthly: "400", quarterly: "360", semiAnnual: "350" }
       },
     ]
-  },
-  {
-    category: "Ad Comm",
-    items: [
-      {
-        name: "Single",
-        costs: { monthly: "Custom", quarterly: "Custom", semiAnnual: "Custom" }
-      },
-    ]
   }
 ];
 
 const addOnCategories: FeatureCategory[] = [
-  {
-    category: "Influencers/ Models/ Content Creators",
-    items: [
-      { name: "Ai Influencer Collabs", costs: { monthly: "Custom", quarterly: "Custom", semiAnnual: "Custom" } },
-      { name: "Real Influencer/ Actor Partnerships", costs: { monthly: "Custom", quarterly: "Custom", semiAnnual: "Custom" } },
-      { name: "Models - Contractual Basis", costs: { monthly: "Custom", quarterly: "Custom", semiAnnual: "Custom" } },
-    ]
-  },
   {
     category: "Videography",
     items: [
@@ -160,6 +143,14 @@ const addOnCategories: FeatureCategory[] = [
       { name: "Transit Branding", costs: { monthly: "Custom", quarterly: "Custom", semiAnnual: "Custom" } },
       { name: "Retail Branding", costs: { monthly: "Custom", quarterly: "Custom", semiAnnual: "Custom" } },
       { name: "Print Media", costs: { monthly: "Custom", quarterly: "Custom", semiAnnual: "Custom" } },
+    ]
+  },
+  {
+    category: "Influencers/ Models/ Content Creators",
+    items: [
+      { name: "Ai Influencer Collabs", costs: { monthly: "Custom", quarterly: "Custom", semiAnnual: "Custom" } },
+      { name: "Real Influencer/ Actor Partnerships", costs: { monthly: "Custom", quarterly: "Custom", semiAnnual: "Custom" } },
+      { name: "Models - Contractual Basis", costs: { monthly: "Custom", quarterly: "Custom", semiAnnual: "Custom" } },
     ]
   },
   {
@@ -229,7 +220,7 @@ export function Pricing() {
             transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
             className="text-5xl md:text-7xl font-bold tracking-tighter mb-6"
           >
-            Nawfs <br className="hidden md:block" />
+            Nawf's <br className="hidden md:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00FF66] to-emerald-400">
               Credit Plans.
             </span>
@@ -240,7 +231,7 @@ export function Pricing() {
             transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
             className="text-lg text-zinc-400 max-w-2xl mx-auto mb-10"
           >
-            Choose the perfect plan for your brand's content needs. From statics to high-converting UGC videos.
+            Choose the perfect plan for your brand's content needs.
           </motion.p>
 
           {/* Toggle Switch */}
