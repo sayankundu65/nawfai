@@ -14,10 +14,67 @@ type Plan = {
 };
 
 const plans: Plan[] = [
-  { name: "Newbie", monthlyCredits: 750, quarterlyCredits: 2375, semiAnnualCredits: 5100, monthlyPrice: 125000, quarterlyPrice: 335000, semiAnnualPrice: 720000 },
-  { name: "Pro", monthlyCredits: 1875, quarterlyCredits: 6000, semiAnnualCredits: 12750, monthlyPrice: 245000, quarterlyPrice: 695000, semiAnnualPrice: 1440000, popular: true },
+  { name: "Newbie", monthlyCredits: 600, quarterlyCredits: 1950, semiAnnualCredits: 4000, monthlyPrice: 75000, quarterlyPrice: 215000, semiAnnualPrice: 425000 },
+  { name: "Pro", monthlyCredits: 1900, quarterlyCredits: 5900, semiAnnualCredits: 11750, monthlyPrice: 225000, quarterlyPrice: 650000, semiAnnualPrice: 1195000, popular: true },
   { name: "Ultimate", monthlyCredits: 4500, quarterlyCredits: 14000, semiAnnualCredits: 31750, monthlyPrice: 370000, quarterlyPrice: 1015000, semiAnnualPrice: 1990000 },
   { name: "Sigma", monthlyCredits: 11250, quarterlyCredits: 35000, semiAnnualCredits: 85000, monthlyPrice: 892500, quarterlyPrice: 2450000, semiAnnualPrice: 4750000 },
+];
+
+type ComboItem = {
+  label: string;
+  count: number;
+};
+
+type OptimalCombo = {
+  planName: string;
+  credits: number;
+  items: ComboItem[];
+};
+
+const optimalCombos: OptimalCombo[] = [
+  {
+    planName: "Newbie",
+    credits: 600,
+    items: [
+      { label: "Statics", count: 2 },
+      { label: "Video 6-10s", count: 1 },
+      { label: "Video 12-15s", count: 2 },
+    ]
+  },
+  {
+    planName: "Pro",
+    credits: 1900,
+    items: [
+      { label: "Statics", count: 10 },
+      { label: "Video 6-10s", count: 2 },
+      { label: "Video 12-15s", count: 3 },
+      { label: "Video 20-30s", count: 2 },
+    ]
+  },
+  {
+    planName: "Ultimate",
+    credits: 4500,
+    items: [
+      { label: "Statics", count: 18 },
+      { label: "Video 6-10s", count: 2 },
+      { label: "Video 12-15s", count: 5 },
+      { label: "Video 20-30s", count: 8 },
+      { label: "UGC", count: 3 },
+    ]
+  },
+  {
+    planName: "Sigma",
+    credits: 11250,
+    items: [
+      { label: "Statics", count: 40 },
+      { label: "Video 6-10s", count: 5 },
+      { label: "Video 12-15s", count: 8 },
+      { label: "Video 20-30s", count: 12 },
+      { label: "Video 45-60s", count: 5 },
+      { label: "Video 60-90s", count: 3 },
+      { label: "UGC", count: 7 },
+    ]
+  },
 ];
 
 type CreditCost = {
@@ -295,6 +352,64 @@ export function Pricing() {
               </motion.div>
             ))}
           </div>
+
+          {/* Optimal Combos — Monthly only */}
+          {billingCycle === 'Monthly' && (
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4, ease: "easeOut" }}
+              className="mt-16"
+            >
+              <div className="text-center mb-10">
+                <h2 className="text-3xl font-bold tracking-tight mb-3">
+                  Optimal <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00FF66] to-emerald-400">Combos</span>
+                </h2>
+                <p className="text-zinc-400 text-base max-w-2xl mx-auto">
+                  Here's an idea of how you can mix &amp; match your monthly credits to create a balanced content calendar.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {optimalCombos.map((combo, i) => (
+                  <motion.div
+                    key={combo.planName}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: i * 0.1 }}
+                    className={`relative rounded-2xl border p-6 ${
+                      combo.planName === 'Pro'
+                        ? 'border-[#00FF66]/40 bg-[#00FF66]/5 shadow-[0_0_20px_rgba(0,255,102,0.1)]'
+                        : 'border-zinc-800 bg-zinc-900/40'
+                    } backdrop-blur-md`}
+                  >
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="text-lg font-semibold text-zinc-100">{combo.planName}</h3>
+                      <span className="text-xs font-mono text-zinc-500 bg-zinc-800/60 rounded-full px-2.5 py-1">
+                        {combo.credits.toLocaleString()} cr
+                      </span>
+                    </div>
+                    <div className="space-y-2.5">
+                      {combo.items.map((item) => (
+                        <div key={item.label} className="flex items-center justify-between group/item">
+                          <span className="text-sm text-zinc-400 group-hover/item:text-zinc-200 transition-colors">{item.label}</span>
+                          <span className="text-sm font-semibold text-zinc-100 bg-zinc-800/50 rounded-md px-2 py-0.5 min-w-[32px] text-center">
+                            {item.count}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="mt-4 pt-3 border-t border-zinc-800/50">
+                      <div className="text-xs text-zinc-500 text-center">
+                        Total: <span className="text-zinc-300 font-medium">{combo.items.reduce((sum, it) => sum + it.count, 0)} assets</span>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          )}
         </section>
 
         {/* Credit Cost Per Unit Table */}
